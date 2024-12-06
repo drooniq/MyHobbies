@@ -1,0 +1,41 @@
+﻿<Window x:Class="MyHobbies.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyHobbies" xmlns:viewmodels="clr-namespace:MyHobbies.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:HobbiesViewModel}"
+        mc:Ignorable="d"
+        Title="MyHobbies" Height="450" Width="1000"
+        FontSize="16">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Enter a new hobby: " VerticalAlignment="Center"/>
+            <TextBox Background="LightGray" Style="{DynamicResource TextBoxStyle1}" Grid.Row="0" Margin="10" Width="400" VerticalContentAlignment="Center"
+                 Text="{Binding NewHobbyName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+
+            <Button Grid.Row="0" Margin="10,10,10,10" Content="Add Hobby" 
+                Background="LightGreen"
+                Command="{Binding AddHobbyCommand}" />
+
+            <Button Grid.Row="0" Margin="10,10,10,10" Content="Delete Hobby"
+                Background="Red"
+                    Foreground="White"
+                Command="{Binding DeleteHobbyCommand}" />
+        </StackPanel>
+
+        <!-- List of Hobbies -->
+        <ListBox Grid.Row="1" Margin="10" ItemsSource="{Binding Hobbies}"
+                 SelectedItem="{Binding SelectedHobby}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="5 5 0 0" Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
